@@ -77,7 +77,6 @@ public class TimeTable {
 			}
 
 		}
-		  return calDays;
 	  }
 	   /**
 	     * This takes the given appointment and constructs a linked list of 

@@ -112,7 +112,7 @@ public class Appt implements  Comparable<Appt>{
     private void isValid() {
     	int NumDaysInMonth= CalendarUtil.NumDaysInMonth(startYear,startMonth-1);
     				
-    	if(startHour<0 || startHour>23)
+    	if(startHour<0 || startHour>24)
     		this.valid=false;
     	else
         	if(startMinute<0 || startMinute>59)
@@ -121,7 +121,7 @@ public class Appt implements  Comparable<Appt>{
             	if(startDay<1 || startDay>NumDaysInMonth)
             		this.valid=false;
             	else
-                	if(startMonth<1 || startMonth>12)
+                	if(startMonth<1 || startMonth>13)
                 		this.valid=false;
                 	else
                 		this.valid=true;
