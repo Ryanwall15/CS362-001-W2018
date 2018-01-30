@@ -15,6 +15,12 @@ public class CalDayTest {
 
 	 @Test
 	  public void test01()  throws Throwable  {
+	 	int day=20;
+	 	int month=12;
+	 	int year=2018;
+
+	 	CalDay cal = new CalDay();
+
 
 	 }
 	 @Test
