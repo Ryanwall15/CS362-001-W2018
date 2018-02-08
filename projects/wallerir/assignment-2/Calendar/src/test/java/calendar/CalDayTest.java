@@ -15,13 +15,13 @@ public class CalDayTest {
 
 	 @Test
 	  public void test01()  throws Throwable  {
-	 	int day=20;
+	 	int day=25;
 	 	int month=12;
 	 	int year=2018;
 
-	 	CalDay cal = new CalDay();
+	 	//CalDay cal = new CalDay(cal);
 
-
+	 	//assertEquals(25,cal.getDay());
 	 }
 	 @Test
 	  public void test02()  throws Throwable  {
