@@ -40,13 +40,6 @@ public class ApptTest {
 		 appt.compareTo(appt);
 	 }
 
-	 @Test
-	  public void test02()  throws Throwable  {
-	 	Appt appt = new Appt (15, 40, 10, 06, 2018, "meeting", "for work");
-	 	assertEquals(true, appt.getValid());
-
-		 
-	 }
 
 	 @Test
 	public void test03() throws Throwable {
@@ -66,16 +59,19 @@ public class ApptTest {
 				 title,
 				 description);
 
+
+		 //Setters
 		 appt.setStartHour(16);
 		 appt.setStartMinute(00);
 		 appt.setStartDay(2);
 		 appt.setStartMonth(06);
 		 appt.setStartYear(2018);
+
 	 }
 
 	 @Test
-	public void test04() {
-		 int startHour=-1;
+	 public void test04() { //testing hour ranges
+		 int startHour=16;
 		 int startMinute=00;
 		 int startDay=2;
 		 int startMonth=06;
@@ -91,16 +87,125 @@ public class ApptTest {
 				 title,
 				 description);
 
-		 assertEquals(false, appt.getValid());
+		 appt.setStartHour(-1);
+		 assertEquals(false,appt.getValid());
 
-		 appt.setStartHour(1);
+		 appt.setStartHour(25);
+		 assertEquals(false,appt.getValid());
+
+		 appt.setStartHour(0);
 		 assertEquals(true,appt.getValid());
+
+		 appt.setStartHour(23);
+		 assertEquals(true,appt.getValid());
+
+
+	 }
+
+	@Test
+	public void test05() { //testing minute ranges
+		int startHour=16;
+		int startMinute=00;
+		int startDay=2;
+		int startMonth=06;
+		int startYear=2018;
+		String title="Work Meeting";
+		String description="Meeting to discuss project";
+
+		Appt appt = new Appt(startHour,
+				startMinute ,
+				startDay ,
+				startMonth ,
+				startYear ,
+				title,
+				description);
+
+		appt.setStartMinute(-1);
+		assertEquals(false,appt.getValid());
+
+		appt.setStartMinute(60);
+		assertEquals(false, appt.getValid());
+
+		appt.setStartMinute(61);
+		assertEquals(false,appt.getValid());
+
+		appt.setStartMinute(1);
+		assertEquals(true,appt.getValid());
+
+		appt.setStartMinute(59);
+		assertEquals(true,appt.getValid());
 
 
 	}
 
+	 @Test
+	public void test06() {
+		 int startHour=16;
+		 int startMinute=00;
+		 int startDay=02;
+		 int startMonth=06;
+		 int startYear=2018;
+		 String title="Work Meeting";
+		 String description="Meeting to discuss project";
+
+		 Appt appt = new Appt(startHour,
+				 startMinute ,
+				 startDay ,
+				 startMonth ,
+				 startYear ,
+				 title,
+				 description);
+
+		 assertEquals(true,appt.getValid());
+
+
+		 appt.setStartDay(-1);
+		 assertEquals(false,appt.getValid());
+
+		 appt.setStartDay(32);
+		 assertEquals(false,appt.getValid());
+
+		 appt.setStartDay(1);
+		 assertEquals(true,appt.getValid());
+
+		 appt.setStartDay(30);
+		 assertEquals(true,appt.getValid());
+
+	}
+
 	@Test
-	public void test05() {
+	public void test07() {
+		int startHour=16;
+		int startMinute=00;
+		int startDay=02;
+		int startMonth=06;
+		int startYear=2018;
+		String title="Work Meeting";
+		String description="Meeting to discuss project";
+
+		Appt appt = new Appt(startHour,
+				startMinute ,
+				startDay ,
+				startMonth ,
+				startYear ,
+				title,
+				description);
+
+		assertEquals(true,appt.getValid());
+
+
+		assertEquals(06,appt.getStartMonth());
+
+		appt.setStartMonth(12);
+		assertEquals(true,appt.getValid());
+
+		appt.setStartMonth(1);
+		assertEquals(true,appt.getValid());
+
+	}
+
+	@Test
+	public void test08() {
 		int startHour=05;
 		int startMinute=00;
 		int startDay=2;
@@ -126,6 +231,83 @@ public class ApptTest {
 
 
 	}
+
+	@Test
+	public void test09() throws Throwable {
+		int startHour = 16;
+		int startMinute = 00;
+		int startDay = 2;
+		int startMonth = 06;
+		int startYear = 2018;
+		String title = "Work Meeting";
+		String description = "Meeting to discuss project";
+
+		Appt appt = new Appt(startHour,
+				startMinute,
+				startDay,
+				startMonth,
+				startYear,
+				title,
+				description);
+
+		appt.setTitle(null);
+		assertEquals("", appt.getTitle());
+
+		appt.setDescription(null);
+		assertEquals("", appt.getDescription());
+
+	}
+
+	@Test
+	public void test10() {
+		int startHour = 16;
+		int startMinute = -15;
+		int startDay = 2;
+		int startMonth = 06;
+		int startYear = 2018;
+		String title = "Work Meeting";
+		String description = "Meeting to discuss project";
+
+		Appt appt = new Appt(startHour,
+				startMinute,
+				startDay,
+				startMonth,
+				startYear,
+				title,
+				description);
+
+		assertEquals(null,appt.toString());
+
+
+	}
+
+	@Test
+	public void test11() {
+		int startHour = -1;
+		int startMinute = 00;
+		int startDay = 2;
+		int startMonth = 06;
+		int startYear = 2018;
+		String title = "Work Meeting";
+		String description = "Meeting to discuss project";
+
+		Appt appt = new Appt(startHour,
+				startMinute,
+				startDay,
+				startMonth,
+				startYear,
+				title,
+				description);
+
+		assertEquals(false,appt.isRecurring());
+
+		appt.setRecurrence(null,2,2,2);
+		assertEquals(2,appt.getRecurBy());
+		assertEquals(2,appt.getRecurIncrement());
+		assertEquals(2,appt.getRecurNumber());
+
+	}
+
 
 //add more unit tests as you needed
 	
