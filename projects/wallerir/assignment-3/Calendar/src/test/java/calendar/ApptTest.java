@@ -171,6 +171,10 @@ public class ApptTest {
 		 appt.setStartDay(30);
 		 assertEquals(true,appt.getValid());
 
+		 //Forgot year but not working for mutation 
+		 appt.setStartYear(2019);
+		 assertEquals(true,appt.getValid());
+
 	}
 
 	@Test
@@ -301,10 +305,14 @@ public class ApptTest {
 
 		assertEquals(false,appt.isRecurring());
 
-		appt.setRecurrence(null,2,2,2);
+		int[] recurDayArray = null;
+
+		//appt.setRecurrence(null,2,2,2);
+		appt.setRecurrence(null,Appt.RECUR_BY_MONTHLY, 2, Appt.RECUR_NUMBER_NEVER);
+		assertEquals(0,appt.getRecurNumber());
 		assertEquals(2,appt.getRecurBy());
 		assertEquals(2,appt.getRecurIncrement());
-		assertEquals(2,appt.getRecurNumber());
+		assertEquals(0,appt.getRecurNumber());
 
 	}
 
