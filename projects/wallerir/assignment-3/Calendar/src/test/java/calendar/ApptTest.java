@@ -308,7 +308,7 @@ public class ApptTest {
 		int[] recurDayArray = null;
 
 		//appt.setRecurrence(null,2,2,2);
-		appt.setRecurrence(null,Appt.RECUR_BY_MONTHLY, 2, Appt.RECUR_NUMBER_NEVER);
+		appt.setRecurrence(null, Appt.RECUR_BY_MONTHLY, 2, Appt.RECUR_NUMBER_NEVER);
 		assertEquals(0,appt.getRecurNumber());
 		assertEquals(2,appt.getRecurBy());
 		assertEquals(2,appt.getRecurIncrement());

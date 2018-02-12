@@ -19,6 +19,8 @@ public class CalDayTest {
 	  public void test01()  throws Throwable  { //Constructor part 1
 	 	CalDay BadRandom = new CalDay();
 	 	assertEquals(false,BadRandom.isValid());
+	 	assertEquals(null,BadRandom.iterator()); //bad iterator
+		 assertEquals("", BadRandom.toString()); //bad string
 
 	 }
 
@@ -31,11 +33,22 @@ public class CalDayTest {
 	 	assertEquals(2018, Random.getYear());
 	 	assertEquals(6, Random.getMonth());
 	 	assertEquals(26, Random.getDay());
+	 	assertEquals(0, Random.getSizeAppts()); //Return size of valid cal day
 		 
 	 }
 
+	@Test
+	public void test03()  throws Throwable  { //Iterator
+		GregorianCalendar GoodRandom = new GregorianCalendar(2018,6,26);
+		CalDay Random = new CalDay(GoodRandom);
+
+		assertTrue(Random.isValid());
+		Random.iterator();
+
+	}
+
 	 @Test
-	public void test03() throws Throwable { //Add 2 calendar's together
+	public void test04() throws Throwable { //Add 2 calendar's together
 	 	GregorianCalendar GoodRandom = new GregorianCalendar(2018, 6, 26);
 	 	CalDay Random = new CalDay(GoodRandom);
 	 	assertTrue(Random.isValid());
@@ -85,6 +98,7 @@ public class CalDayTest {
 		 assertEquals(12,Random.getAppts().get(0).getStartHour());
 
 	 }
-	 
+
+
 //add more unit tests as you needed	
 }
