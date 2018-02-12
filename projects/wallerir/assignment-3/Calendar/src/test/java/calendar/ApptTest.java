@@ -40,6 +40,9 @@ public class ApptTest {
 
 	 @Test
 	  public void test02()  throws Throwable  {
+	 	//Appt appt = new Appt (15, 40, 10, 06, 2018, "meeting", "for work");
+	 	//assertEquals(true, appt.getValid());
+
 		 
 	 }
 //add more unit tests as you needed
