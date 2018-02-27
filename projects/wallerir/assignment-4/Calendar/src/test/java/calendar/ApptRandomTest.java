@@ -29,6 +29,17 @@ public class ApptRandomTest {
     	            
         return methodArray[n] ; // return the method name 
         }
+
+	/**
+	 * Returns random hour, minute, day, month, year
+	 */
+	public static String RandomGetMethod(Random random){
+		String[] methodArray = new String[] {"startHour","startMinute","startDay","startMonth","startYear"};// The list of the of methods to be tested in the Appt class
+
+		int n = random.nextInt(methodArray.length);// get a random number between 0 (inclusive) and  methodArray.length (exclusive)
+
+		return methodArray[n] ; // return the method name
+	}
 	/**
 	 * Return a randomly selected appointments to recur Weekly,Monthly, or Yearly !.
 	 */
@@ -50,7 +61,7 @@ public class ApptRandomTest {
    /**
      * Generate Random Tests that tests Appt Class.
      */
-	 @Test
+	  @Test
 	  public void radnomtest()  throws Throwable  {
 
 		 long startTime = Calendar.getInstance().getTimeInMillis();
@@ -109,6 +120,84 @@ public class ApptRandomTest {
 		 System.out.println("Done testing...");
 	 }
 
+
+	@Test
+	public void radnomtest1()  throws Throwable  {
+
+		long startTime = Calendar.getInstance().getTimeInMillis();
+		long elapsed = Calendar.getInstance().getTimeInMillis() - startTime;
+
+
+		System.out.println("Start testing...");
+
+		try{
+			for (int iteration = 0; elapsed < TestTimeout; iteration++) {
+				long randomseed =System.currentTimeMillis(); //10
+				//			System.out.println(" Seed:"+randomseed );
+				Random random = new Random(randomseed);
+
+				int startHour=ValuesGenerator.RandInt(random);
+				int startMinute=ValuesGenerator.RandInt(random);
+				int startDay=ValuesGenerator.RandInt(random);;
+				int startMonth=ValuesGenerator.getRandomIntBetween(random, 1, 11);
+				int startYear=ValuesGenerator.RandInt(random);
+				String title="Birthday Party";
+				String description="This is my birthday party.";
+				//Construct a new Appointment object with the initial data
+				Appt appt = new Appt(startHour,
+						startMinute ,
+						startDay ,
+						startMonth ,
+						startYear ,
+						title,
+						description);
+				if(!appt.getValid())continue;
+				for (int i = 0; i < NUM_TESTS; i++) {
+
+					Random random2 = new Random(randomseed);
+					int sizeArray=ValuesGenerator.getRandomIntBetween(random, 0, 8);
+					int[] recurDays=ValuesGenerator.generateRandomArray(random2, sizeArray);
+					int recur = ApptRandomTest.RandomSelectRecur(random2);
+					int Increment = ValuesGenerator.RandInt(random2);
+					int Num = ApptRandomTest.RandomSelectRecurForEverNever(random2);
+					appt.setRecurrence(recurDays, recur, Increment, Num);
+
+
+					String methodName = ApptRandomTest.RandomGetMethod(random);
+
+					if (methodName.equals("startHour")) {
+						//Get random hour
+						int hour = random.nextInt(25);
+						appt.setStartHour(hour);
+					}
+
+					else if (methodName.equals("startMinute")) {
+						//Get random Minute
+						int minute = random.nextInt(61);
+						appt.setStartMinute(minute);
+					}
+
+					else if (methodName.equals("startDay")) {
+						//Get random Day
+						int day = random.nextInt(31);
+						appt.setStartDay(day);
+					}
+
+
+
+				}
+
+				elapsed = (Calendar.getInstance().getTimeInMillis() - startTime);
+				if((iteration%10000)==0 && iteration!=0 )
+					System.out.println("elapsed time: "+ elapsed + " of "+TestTimeout);
+
+			}
+		}catch(NullPointerException e){
+
+		}
+
+		System.out.println("Done testing...");
+	}
 
 	
 }
