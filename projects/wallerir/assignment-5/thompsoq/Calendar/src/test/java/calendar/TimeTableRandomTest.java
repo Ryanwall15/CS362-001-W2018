@@ -1,162 +1,192 @@
 package calendar;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.LinkedList;
 import java.util.Random;
 
 import org.junit.Test;
 
 
 import static org.junit.Assert.*;
-import java.util.GregorianCalendar;
-import java.util.Random;
-import java.util.LinkedList;
+
+
 
 /**
  * Random Test Generator  for TimeTable class.
  */
 
 public class TimeTableRandomTest {
-	private static final long TestTimeout = 60 * 100 * 1; /* Timeout at 30 seconds */
+	private static final long TestTimeout = 60 * 500 * 1; /* Timeout at 30 seconds */
 	private static final int NUM_TESTS = 100;
-    /**
-     * Generate Random Tests that tests TimeTable Class.
-     */
-	 @Test
-	  public void radnomtest()  throws Throwable  {
-		 TimeTable timetable = new TimeTable();
 
+	/**
+	 * Return a randomly selected method to be tests !.
+	 */
+	public static String RandomSelectMethod(Random random) {
+		String[] methodArray = new String[]{"setTitle", "setRecurrence"};// The list of the of methods to be tested in the Appt class
 
-		 long startTime = Calendar.getInstance().getTimeInMillis();
-		 long elapsed = Calendar.getInstance().getTimeInMillis() - startTime;
-		 boolean testValid;
+		int n = random.nextInt(methodArray.length);// get a random number between 0 (inclusive) and  methodArray.length (exclusive)
 
+		return methodArray[n]; // return the method name
+	}
 
-		 System.out.println("Start testing...");
-		 GregorianCalendar cal = new GregorianCalendar(2019, 2, 17);
-		 CalDay calday = new CalDay(cal);
-		 try {
-			 for (int iteration = 0; elapsed < TestTimeout; iteration++) {
-				 LinkedList<Appt> listAppts = new LinkedList<Appt>();
-				 LinkedList<Appt> listAppts2 = new LinkedList<Appt>();
-				 long randomseed = System.currentTimeMillis(); //10
-				 //			System.out.println(" Seed:"+randomseed );
-				 Random random = new Random(randomseed);
+	/**
+	 * Returns random hour, minute, day, month, year
+	 */
+	public static String RandomGetMethod(Random random) {
+		String[] methodArray = new String[]{"startHour", "startMinute", "startDay", "startMonth", "startYear"};// The list of the of methods to be tested in the Appt class
 
-				 int startMinute = (ValuesGenerator.RandInt(random));
-				 int startHour = (ValuesGenerator.RandInt(random));
+		int n = random.nextInt(methodArray.length);// get a random number between 0 (inclusive) and  methodArray.length (exclusive)
 
-				 int startDay = (ValuesGenerator.RandInt(random) + 1);
-				 int startMonth = ValuesGenerator.getRandomIntBetween(random, 1, 11);
-				 int startYear = ValuesGenerator.RandInt(random);
-				 String title = ValuesGenerator.getString(random);
-				 if (title == null){
-					 title = " ";
-				 }
-				 String description = ValuesGenerator.getString(random);
-				 if (description == null){
-					 description = " ";
-				 }
-				 //Construct a new Appointment object with the initial data
+		return methodArray[n]; // return the method name
+	}
 
-				 Appt appt = new Appt(startHour,
-						 startMinute,
-						 startDay,
-						 startMonth,
-						 startYear,
-						 title,
-						 description);
-				 String half = startHour > 11 ? "pm" : "am";
-				 int printableHour = startHour;
-				 if (printableHour > 11) {
-					 printableHour -= 12;
-				 }
-				 if (printableHour == 0) {
-					 printableHour = 12;
-				 }
-				 String represntationApp = printableHour + ":" + appt.getStartMinute() + half;
-				 String myOutput = "\t" + startMonth + "/" + startDay + "/" + startYear + " at " + represntationApp + " ," + title + ", " + description + "\n";
+	/**
+	 * Return a randomly selected appointments to recur Weekly,Monthly, or Yearly !.
+	 */
+	public static int RandomSelectRecur(Random random) {
+		int[] RecurArray = new int[]{Appt.RECUR_BY_WEEKLY, Appt.RECUR_BY_MONTHLY, Appt.RECUR_BY_YEARLY};// The list of the of setting appointments to recur Weekly,Monthly, or Yearly
 
-				 startMinute = (ValuesGenerator.RandInt(random));
-				 startHour = (ValuesGenerator.RandInt(random));
-				 startDay = (ValuesGenerator.RandInt(random) + 1);
-				 startMonth = ValuesGenerator.getRandomIntBetween(random, 1, 11);
-				 startYear = ValuesGenerator.RandInt(random);
-				 title = ValuesGenerator.getString(random);
-				 if (title == null){
-					 title = " ";
-				 }
-				 description = ValuesGenerator.getString(random);
-				 if (description == null){
-					 description = " ";
-				 }
+		int n = random.nextInt(RecurArray.length);// get a random number between 0 (inclusive) and  RecurArray.length (exclusive)
+		return RecurArray[n]; // return the value of the  appointments to recur
+	}
 
-				 Appt appt2 = new Appt(startHour,
-						 startMinute,
-						 startDay,
-						 startMonth,
-						 startYear,
-						 title,
-						 description);
-				 half = startHour > 11 ? "pm" : "am";
-				 printableHour = startHour;
-				 if (printableHour > 11) {
-					 printableHour -= 12;
-				 }
-				 if (printableHour == 0) {
-					 printableHour = 12;
-				 }
-				 represntationApp = printableHour + ":" + appt2.getStartMinute() + half;
-				 String myOutputT =  "[" + myOutput + ", " + "\t" + startMonth + "/" + startDay + "/" + startYear + " at " + represntationApp + " ," + title + ", " + description + "\n" + ", null]";
+	/**
+	 * Return a randomly selected appointments to recur forever or Never recur  !.
+	 */
+	public static int RandomSelectRecurForEverNever(Random random) {
+		int[] RecurArray = new int[]{Appt.RECUR_NUMBER_FOREVER, Appt.RECUR_NUMBER_NEVER};// The list of the of setting appointments to recur RECUR_NUMBER_FOREVER, or RECUR_NUMBER_NEVER
 
+		int n = random.nextInt(RecurArray.length);// get a random number between 0 (inclusive) and  RecurArray.length (exclusive)
+		return RecurArray[n]; // return appointments to recur forever or Never recur
+	}
 
-				 //Construct a new Appointment object with the initial data
-				 listAppts.add(appt);
-				 listAppts.add(appt2);
-				 System.out.println("mtOutputT: "+ myOutputT + " to "+ listAppts.toString());
-				 GregorianCalendar today = new GregorianCalendar(startYear,startMonth,startDay);
-				 GregorianCalendar tomorrow = new GregorianCalendar((startYear+1),startMonth,startDay);
+	/**
+	 * Generate Random Tests that tests TimeTable Class.
+	 */
+	@Test
+	public void radnomtest() throws Throwable {
 
+		long startTime = Calendar.getInstance().getTimeInMillis();
+		long elapsed = Calendar.getInstance().getTimeInMillis() - startTime;
+		TimeTable Random = new TimeTable();
+		GregorianCalendar RandomCal = new GregorianCalendar();
+		CalDay calday = new CalDay(RandomCal);
 
-				 Appt appt3 = new Appt(startHour,
-						 ((startMinute+1)*70),
-						 startDay,
-						 startMonth,
-						 startYear,
-						 title,
-						 description);
-				 listAppts.add(appt3);
+		System.out.println("Start testing...");
 
-				 LinkedList<CalDay> output = timetable.getApptRange(listAppts,today,tomorrow);
-				 assertEquals(myOutputT, listAppts.toString());
-
-				 assertEquals(null, timetable.deleteAppt(listAppts2, appt3));
-				 assertEquals(null, timetable.deleteAppt(listAppts, appt3));
-				 assertEquals(listAppts, timetable.deleteAppt(listAppts, appt2));
-				 System.out.println("deleted "+ appt2.toString());
-
-				 assertEquals(null,	timetable.deleteAppt(listAppts2, null));
-				 assertEquals(null,	timetable.deleteAppt(null, null));
-				 myOutput = "[" + myOutput + ", null]";
-				 assertEquals(myOutput, listAppts.toString());
-				 timetable.deleteAppt(listAppts,appt);
-				 System.out.println("deleted "+ appt.toString());
-				 assertEquals(null,timetable.deleteAppt(listAppts,appt2));
+		try {
+			for (int iteration = 0; elapsed < TestTimeout; iteration++) {
 
 
 
-					 elapsed = (Calendar.getInstance().getTimeInMillis() - startTime);
-				 if((iteration%10000)==0 && iteration!=0 )
-					 System.out.println("CalDay elapsed time: "+ elapsed + " of "+TestTimeout);
+				long randomseed = System.currentTimeMillis(); //10
+				//			System.out.println(" Seed:"+randomseed );
+				Random random = new Random(randomseed);
 
-			 }
-		 } catch (NullPointerException e) {
+				int startHour = ValuesGenerator.RandInt(random);
+				int startMinute = ValuesGenerator.RandInt(random);
+				int startDay = ValuesGenerator.RandInt(random);
+				;
+				int startMonth = ValuesGenerator.getRandomIntBetween(random, 1, 11);
+				int startYear = ValuesGenerator.RandInt(random);
+				String title = "Birthday Party";
+				String description = "This is my birthday party.";
 
 
-		 }
-		 System.out.println("Done testing...");
-		 
-	 }
+				//Based on how I did timetable last time it goes
+				//GregorianCalendar next = new GregorianCalendar(startYear, startMonth, startDay)
+				//We are doing this randomly so I need to get a random Month and Day, keeping year the same
+				int randomDay = ValuesGenerator.getRandomIntBetween(random,1, 31);
+				int randomDayTwo = ValuesGenerator.getRandomIntBetween(random, 1, 31);
+
+				int RandomMonth = ValuesGenerator.getRandomIntBetween(random, 1, 11);
+				int RandomMonthTwo = ValuesGenerator.getRandomIntBetween(random, 1, 11);
+
+				//int RandomYear = ValuesGenerator.getRandomIntBetween(random, 2010, 2020);
+				int RandomYearTwo = ValuesGenerator.getRandomIntBetween(random, 2010, 2020);
+
+				GregorianCalendar next = new GregorianCalendar(startYear, RandomMonth, randomDay);
+				GregorianCalendar prev = new GregorianCalendar(RandomYearTwo, RandomMonthTwo, randomDayTwo);
 
 
-	
+
+				//Construct a new Appointment object with the initial data
+				Appt appt = new Appt(startHour,
+						startMinute,
+						startDay,
+						startMonth,
+						startYear,
+						title,
+						description);
+				if(!appt.getValid())continue;
+				Appt appt1 = new Appt(-1, 61, 52, 06, 2018, title, description);
+				Appt appt2 = new Appt (startHour, startMinute, startDay, startMonth, startYear, title, description);
+
+				LinkedList<Appt> appts = new LinkedList<Appt>();
+				appts.add(appt);
+				appts.add(appt1);
+				appts.add(appt2);
+
+				Random.getApptRange(appts, next, prev);
+
+				Random.deleteAppt(appts, appt);
+				Random.deleteAppt(appts, appt1);
+				Random.deleteAppt(appts,appt2);
+
+
+				elapsed = (Calendar.getInstance().getTimeInMillis() - startTime);
+				if ((iteration % 10000) == 0 && iteration != 0)
+					System.out.println("elapsed time: " + elapsed + " of " + TestTimeout);
+
+			}
+		} catch (NullPointerException e) {
+
+		}
+
+		System.out.println("Done testing...");
+	}
+
+	@Test
+	public void randomtest01() throws Throwable { //Deleting null
+
+		long startTime = Calendar.getInstance().getTimeInMillis();
+		long elapsed = Calendar.getInstance().getTimeInMillis() - startTime;
+		TimeTable Random = new TimeTable();
+		GregorianCalendar RandomCal = new GregorianCalendar();
+		CalDay calday = new CalDay(RandomCal);
+
+		System.out.println("Start testing...");
+
+		try {
+			for (int iteration = 0; elapsed < TestTimeout; iteration++) {
+
+				LinkedList<Appt> apptsNull = null;
+
+				Random.deleteAppt(apptsNull, null);
+
+
+				elapsed = (Calendar.getInstance().getTimeInMillis() - startTime);
+				if ((iteration % 10000) == 0 && iteration != 0)
+					System.out.println("elapsed time: " + elapsed + " of " + TestTimeout);
+
+			}
+		} catch (NullPointerException e) {
+
+		}
+
+		System.out.println("Done testing...");
+
+
+	}
+
+	@Test
+	public void randomtest02() throws Throwable {
+
+
+
+	}
+
+
 }
