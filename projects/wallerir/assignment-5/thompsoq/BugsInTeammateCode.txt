@@ -1,1 +1,14 @@
-Ryan Wallerius 
+Ryan Wallerius - Bugs in Code
+
+isValid(): 
+1) Line 115: if(startHour < 0 || startHour > 24). This would have an invalid start hour. It should be 23
+2) Line 118: if(startMinute < 0 || startMinute > 60). This would have an invalid start Minute. It should be 59.
+3) Line 124: if(startMonth < 0 || startMonth > 12). This again would have an invalid startMonth. We need it to be < 1. 
+
+getApptRange(): 
+1) Line 58: getApptOccurances(appt, lastDay, firstDay). This is wrong. We need it to be getApptOccurances(appt, firstDay, lastDay). 
+It would immediately exit if it checked lastDay before firstDay. 
+
+deleteAppt(): 
+1) Line 209: (for i=1; i<appts.size(); i++). We need to change it to for(int i=1; i<appts.size()-1; i++).
+This would cause a segmentation fault if we didn't change it. 
