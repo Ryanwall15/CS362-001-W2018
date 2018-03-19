@@ -28,9 +28,11 @@ public class UrlValidatorTest extends TestCase {
 //You can use this function to implement your manual testing
       assertNotNull(urlVal);
       assertTrue(urlVal.isValid("http://www.google.com/")); //Valid URL
+      assertTrue(urlVal.isValid("http://www.github.com"));
       //assertTrue(urlVal.isValidAuthority("www.google.com")); //Potential bug
 
       assertFalse(urlVal.isValid("234piojad;")); //Invalid URL
+      //assertFalse(urlVal.isValid("htt://www.github.com"));
 
 	   
    }
